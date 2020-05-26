@@ -45,6 +45,7 @@ class Mail_tg():
         #ПОЛЯ СООБЩЕНИЯ
         keys = ['Date', 'From', 'Subject']
         response = []
+        ###
 
         for key in keys:
 
@@ -55,6 +56,22 @@ class Mail_tg():
                 response.append(decodestring(mail[key][9:]).decode('utf-8'))
             else:
                 response.append(mail[key])
+
+        if mail.get_content_maintype() == 'multipart':
+            for part in mail.get_payload():
+                if part.get_content_maintype() == 'text':
+                    try:
+                        response.append(b64decode(part.get_payload()).decode('utf-8'))
+                    except:
+                        response.append(part.get_payload())
+                    finally:
+                        break
+
+        elif mail.get_content_maintype() == 'text':
+            try:
+                response.append(b64decode(mail.get_payload()).decode('utf-8'))
+            except:
+                response.append(mail.get_payload())
 
         return response
 

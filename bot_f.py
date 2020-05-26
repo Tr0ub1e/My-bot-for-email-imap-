@@ -6,7 +6,7 @@ class Bot:
 
     def __init__(self, token):
 
-        self.comands = {'/idle':'Ожидание письма', '/last':'Последнее сообщение', '/read':'Прочитать сообщение'}
+        self.comands = {'/idle':'Ожидание письма'}
         self.token = token
         self._url = 'https://api.telegram.org/bot'
         self.s = req.Session()

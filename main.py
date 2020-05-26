@@ -2,9 +2,9 @@ from time import sleep
 from email_f import Mail_tg
 from bot_f import Bot
 
-token = 'your bot token'
+token = 'bot token'
 log_pass = ('login', 'pass')
-site_port = ('imap site', 'port')
+site_port = ('your site', 'port')
 
 my_bot = Bot(token)
 my_mail = Mail_tg(log_pass, site_port)
@@ -18,5 +18,4 @@ if cmd == '/idle':
 
     my_bot.send_message('Начинаю слушать почту...')
 
-    buf = my_mail.prepare_data(resp['result'][-1]['message']['text'])
-    my_mail.listening(buf, my_bot, resp)
+    my_mail.listening(my_mail.prepare_data(resp['result'][-1]['message']['text']), my_bot, resp)
